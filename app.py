@@ -9,7 +9,7 @@ import pandas as pd           # Manejo de datos tabulares (DataFrames)
 st.set_page_config(page_title="Métodos Numéricos", layout="wide", page_icon="smile")
 
 algorithm, inicio, analitico, ejemplos, aplicaciones, conclusion = st.tabs(
-    ["Developer Algorithm", "Inicio", "Analítico vs Numérico", "Ejemplos", "Aplicaciones", "Conclusión"]
+    ["Algorithm", "Inicio", "Analítico vs Numérico", "Ejemplos", "Aplicaciones", "Conclusión"]
 )
 
 with algorithm:
@@ -504,4 +504,5 @@ with aplicaciones:
 
         st.subheader("Video tutorial recomendado")
         st.video("https://www.youtube.com/watch?v=WC4_YpdgE18&list=PL7HAy5R0ehQXnHqAEJUNb1ci_24cUQ4L5")
+
 
