@@ -13,7 +13,7 @@ algorithm, inicio, analitico, ejemplos, aplicaciones, conclusion = st.tabs(
 )
 
 with algorithm:
-    st.Title("Integrantes del grupo - Developer Algorithm")
+    st.header("Integrantes del grupo - Developer Algorithm")
     st.markdown("""
     ### Miembros:
     - Carla Valeria Encinas Cano - Lider de Grupo
@@ -504,5 +504,6 @@ with aplicaciones:
 
         st.subheader("Video tutorial recomendado")
         st.video("https://www.youtube.com/watch?v=WC4_YpdgE18&list=PL7HAy5R0ehQXnHqAEJUNb1ci_24cUQ4L5")
+
 
 
