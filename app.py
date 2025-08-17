@@ -9,7 +9,7 @@ import pandas as pd           # Manejo de datos tabulares (DataFrames)
 st.set_page_config(page_title="Métodos Numéricos", layout="wide", page_icon="smile")
 
 algorithm, inicio, analitico, ejemplos, aplicaciones, conclusion = st.tabs(
-    ["Algorithm", "Inicio", "Analítico vs Numérico", "Ejemplos", "Aplicaciones", "Conclusión"]
+    ["Developer Algorithm", "Inicio", "Analítico vs Numérico", "Ejemplos", "Aplicaciones", "Conclusión"]
 )
 
 with algorithm:
@@ -436,14 +436,12 @@ with aplicaciones:
 
         uploaded = st.file_uploader("Sube una imagen (jpg/png)", type=["jpg","jpeg","png"])
         if uploaded is not None:
-            # Abrimos y convertimos a escala de grises
             img = Image.open(uploaded).convert("L")  
             arr = np.array(img).astype(float)
 
             max_k = min(arr.shape)
             k = st.slider("Componentes (k)", 1, max_k, min(50, max_k))
 
-            # Descomposición SVD
             U, S, Vt = np.linalg.svd(arr, full_matrices=False)
             arr_approx = (U[:, :k] @ np.diag(S[:k]) @ Vt[:k, :])
             arr_approx = np.clip(arr_approx, 0, 255).astype(np.uint8)
@@ -454,7 +452,6 @@ with aplicaciones:
 
             st.write("Reducción de datos aproximada:", f"{k * (arr.shape[0] + arr.shape[1])} elementos (vs {arr.size})")
 
-            # --- Checkbox para diferencia ---
             show_diff = st.checkbox("Mostrar diferencia (error visual)")
             if show_diff:
                 diff = np.abs(arr - arr_approx).astype(np.uint8)
@@ -504,6 +501,3 @@ with aplicaciones:
 
         st.subheader("Video tutorial recomendado")
         st.video("https://www.youtube.com/watch?v=WC4_YpdgE18&list=PL7HAy5R0ehQXnHqAEJUNb1ci_24cUQ4L5")
-
-
-
