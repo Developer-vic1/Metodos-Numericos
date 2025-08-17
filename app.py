@@ -418,42 +418,48 @@ with aplicaciones:
 
         st.markdown(r"""
         **¿Por qué la compresión de imágenes con SVD es un método numérico?**
-        La descomposición en valores singulares (SVD) es un algoritmo numérico que factoriza una matriz en tres matrices:  
-        \[
-            A = U \Σ V^T
-        \]
+        La descomposición en valores singulares (SVD) es un algoritmo numérico que factoriza una matriz en tres matrices:""")
+        st.latex(r"A = U \ Σ V^T")
 
-        donde:  
+        st.markdown("""donde:  
         - \(A\) es la matriz original (la imagen en escala de grises).  
         - \(U\) y \(V^T\) son matrices ortogonales.  
-        - \(Σ\) es una matriz diagonal con valores singulares ordenados de mayor a menor.
+        - \(Σ\) es una matriz diagonal con valores singulares ordenados de mayor a menor.""")
 
-        Al conservar solo las primeras \(k\) componentes singulares, obtenemos una **aproximación** de la imagen original:  
-        \[
-            A_k = U_k \Σ_k V_k^T
-        \]
+        st.markdown("Al conservar solo las primeras \(k\) componentes singulares, obtenemos una **aproximación** de la imagen original:")
 
-        Esto permite reducir la cantidad de datos almacenados y es un ejemplo claro de cómo los métodos numéricos permiten resolver problemas prácticos de gran tamaño mediante aproximaciones computacionales.
+        st.latex(r"A_k = U_k \Sigma_k V_k^T")
+
+        st.markdown(r"""Esto permite reducir la cantidad de datos almacenados y es un ejemplo claro de cómo los métodos numéricos permiten resolver problemas prácticos de gran tamaño mediante aproximaciones computacionales.
         Ajusta el número de componentes para ver cómo cambia la calidad y tamaño de la imagen comprimida.
         """)
 
-        from PIL import Image
-
-
         uploaded = st.file_uploader("Sube una imagen (jpg/png)", type=["jpg","jpeg","png"])
         if uploaded is not None:
-            img = Image.open(uploaded).convert("L") 
+            # Abrimos y convertimos a escala de grises
+            img = Image.open(uploaded).convert("L")  
             arr = np.array(img).astype(float)
+
             max_k = min(arr.shape)
             k = st.slider("Componentes (k)", 1, max_k, min(50, max_k))
+
+            # Descomposición SVD
             U, S, Vt = np.linalg.svd(arr, full_matrices=False)
             arr_approx = (U[:, :k] @ np.diag(S[:k]) @ Vt[:k, :])
             arr_approx = np.clip(arr_approx, 0, 255).astype(np.uint8)
 
             col1, col2 = st.columns(2)
-            col1.image(arr, caption="Original", use_column_width=True)
-            col2.image(arr_approx, caption=f"Comprimida k={k}", use_column_width=True)
-            st.write("Reducción de datos aproximada:", f"{k* (arr.shape[0]+arr.shape[1])} elementos (vs {arr.size})")
+            col1.image(img, caption="Original", use_container_width=True)
+            col2.image(arr_approx, caption=f"Comprimida k={k}", use_container_width=True)
+
+            st.write("Reducción de datos aproximada:", f"{k * (arr.shape[0] + arr.shape[1])} elementos (vs {arr.size})")
+
+            # --- Checkbox para diferencia ---
+            show_diff = st.checkbox("Mostrar diferencia (error visual)")
+            if show_diff:
+                diff = np.abs(arr - arr_approx).astype(np.uint8)
+                st.image(diff, caption="Diferencia (|Original - Comprimida|)", use_container_width=True)
+
 
     with fin_tab:
         st.subheader("Finanzas: Simulación Monte Carlo para Precios Futuros")
