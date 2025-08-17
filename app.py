@@ -9,11 +9,11 @@ import pandas as pd           # Manejo de datos tabulares (DataFrames)
 st.set_page_config(page_title="Métodos Numéricos", layout="wide", page_icon="smile")
 
 algorithm, inicio, analitico, ejemplos, aplicaciones, conclusion = st.tabs(
-    ["Algorithm", "Inicio", "Analítico vs Numérico", "Ejemplos", "Aplicaciones", "Conclusión"]
+    ["Developer Algorithm", "Inicio", "Analítico vs Numérico", "Ejemplos", "Aplicaciones", "Conclusión"]
 )
 
 with algorithm:
-    st.header("Integrantes del grupo - Algorithm")
+    st.Title("Integrantes del grupo - Developer Algorithm")
     st.markdown("""
     ### Miembros:
     - Carla Valeria Encinas Cano - Lider de Grupo
@@ -504,3 +504,4 @@ with aplicaciones:
 
         st.subheader("Video tutorial recomendado")
         st.video("https://www.youtube.com/watch?v=WC4_YpdgE18&list=PL7HAy5R0ehQXnHqAEJUNb1ci_24cUQ4L5")
+
